@@ -9,11 +9,11 @@ const state: State = {
         },
         {
             id: 2,
-            name: 'Nguyễn Văn Buồi'
+            name: 'Nguyễn Văn B'
         },
         {
             id: 3,
-            name: 'Lê Văn Cặc'
+            name: 'Lê Văn C'
         }
     ]
 }
