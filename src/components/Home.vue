@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-40">
     <div class="flex justify-between mb-2 mt-4">
-      <h1>Author: <span class="text-red-600	font-semibold">{{ author }}</span></h1>
+      <h1>Author: <span class="text-color	font-semibold">{{ author }}</span></h1>
       <div>
         <button class="w-28 h-10 border-2 bg-green-500 rounded text-white" @click="addItem">Create</button>
       </div>
@@ -10,7 +10,7 @@
       <input class="bg-gray-50 w-full border-2 rounded h-10 p-2" type="text" placeholder="Enter name" v-model="name"/>
     </div>
     <div>
-      <ul v-for="item in items" :key="item.id" class="bg-gray-300 mb-2 p-2">
+      <ul v-for="item in items" :key="item.id" class="border-custom bg-gray-300 mb-2 p-2">
         <li class="flex justify-between	">
           <div>
             <p>Name: {{ item.name }}</p>
@@ -27,7 +27,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue"
 import { useStore, mapActions } from "vuex"
-import { Items, State } from "../store/type"
+import { Item } from "../store/types"
 export default defineComponent({
   name: 'Home',
   props: {
@@ -37,13 +37,13 @@ export default defineComponent({
       default: 'Dick'
     }
   },
-  setup: (props) => {
+  setup: (_) => {
     const store = useStore()
-    const items = computed<Items[]>(() => store.getters['getItems'])
-    let name = ref('')
+    const items = computed<Item[]>(() => store.getters['getItems'])
+    const name = ref('')
 
     const addItem = () => {
-      store.dispatch<Items>('addItem', {
+      store.dispatch('addItem', {
         id: items.value.slice(-1).pop(),
         name: name.value
       })
@@ -53,9 +53,14 @@ export default defineComponent({
     return { items, name, addItem }
   },
   methods: {
-   ...mapActions(["removeItem"]) 
+   ...mapActions(["removeItem"])
   }
 })
 </script>
 
-<style scoped></style>
+<style lang="scss">
+  // @import '../assets/scss/variables.scss';
+  .text-color {
+    color: $base-color;
+  }
+</style>
